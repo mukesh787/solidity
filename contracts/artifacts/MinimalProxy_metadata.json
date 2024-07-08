@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "target",
+						"type": "address"
+					}
+				],
+				"name": "clone",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "result",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/MinimalProxyDeployment.sol": "MinimalProxy"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/MinimalProxyDeployment.sol": {
+			"keccak256": "0x25f2356fbf76b53c70c10612b122f1c9860665ca9d386c05501354fa96888dc4",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://552dec9127e990596937a31116db501ed0d8bdb586b720cbba7e640e9c676476",
+				"dweb:/ipfs/QmNkqnB4mLLy55RoyhpbBHMVTMbWa9qVcFEBbbeKhsUkYg"
+			]
+		}
+	},
+	"version": 1
+}
