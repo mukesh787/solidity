@@ -1,0 +1,131 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "salt",
+						"type": "uint256"
+					}
+				],
+				"name": "Deployed",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "bytecode",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_salt",
+						"type": "uint256"
+					}
+				],
+				"name": "Deploy",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "bytecode",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_salt",
+						"type": "uint256"
+					}
+				],
+				"name": "getAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_foo",
+						"type": "uint256"
+					}
+				],
+				"name": "getBytecode",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/precomputeAddress.sol": "FactoryAssembly"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/precomputeAddress.sol": {
+			"keccak256": "0xec4fd5510f4db0ce7d783ac2a19befbe824660d6ac3130781c0fd203aeb2c2f5",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://db19b4ef32a23e1e0308a9128aef9c7b6bebdc76c68d989a525c7c294ed9a064",
+				"dweb:/ipfs/QmU3sWaNpdtKfU4fd1Gfq8n9pPyVW1vEGvF4EqNa15ZjqR"
+			]
+		}
+	},
+	"version": 1
+}

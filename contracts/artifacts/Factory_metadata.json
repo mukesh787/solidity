@@ -1,0 +1,66 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					}
+				],
+				"name": "log",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "deploy",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Bytecode.sol": "Factory"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Bytecode.sol": {
+			"keccak256": "0x9f876b6148ea2226fdf7c5b46cfdbe76c76707ac6e3fffc744505fc1d9a2f158",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://74605424da6b38c3c00e31e546f1f395519b48ad8fa556ba1fb4a7f5bad890c5",
+				"dweb:/ipfs/QmYDu7o3Mv9Fb13JiXBYEZwVTyF9qbcXQPqAkAgDBR13Y4"
+			]
+		}
+	},
+	"version": 1
+}
