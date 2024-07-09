@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
-
-interface IERC165{
+interface IERC165 {
     function supportsInterface(bytes4 interfaceID)
         external
         view
@@ -42,90 +41,123 @@ interface IERC721Receiver {
     ) external returns (bytes4);
 }
 
-contract ERC721 is IERC721{
-    event Transfer(address sender, address to, uint Id);
-    event Approve(address owner,address spender,uint Id);
+contract ERC721 is IERC721 {
+    event Transfer(
+        address indexed from, address indexed to, uint256 indexed id
+    );
+    event Approval(
+        address indexed owner, address indexed spender, uint256 indexed id
+    );
     event ApprovalForAll(
-    address indexed owner, address indexed operator, bool approved
+        address indexed owner, address indexed operator, bool approved
     );
 
-    mapping(uint=>address)internal _ownerOf;
-    mapping(address=>uint)internal _balanceOf;
-    mapping(uint=>address)internal _approvals;
-    mapping(address=>mapping(address=>bool))public isApprovedForAll;
+    // Mapping from token ID to owner address
+    mapping(uint256 => address) internal _ownerOf;
+
+    // Mapping owner address to token count
+    mapping(address => uint256) internal _balanceOf;
+
+    // Mapping from token ID to approved address
+    mapping(uint256 => address) internal _approvals;
+
+    // Mapping from owner to operator approvals
+    mapping(address => mapping(address => bool)) public isApprovedForAll;
+
     function supportsInterface(bytes4 interfaceId)
         external
         pure
-        returns (bool){
-        return interfaceId== type(IERC721).interfaceId
+        returns (bool)
+    {
+        return interfaceId == type(IERC721).interfaceId
             || interfaceId == type(IERC165).interfaceId;
-        }
-    function balanceOf(address owner) external view returns (uint256 balance){
-        balance=_balanceOf[owner];
-        return balance;
     }
-    function ownerOf(uint256 tokenId) external view returns (address owner){
-        owner=_ownerOf[tokenId];
-        return owner;
-    }
-    function approve(address to, uint256 tokenId) external{
-        address owner=_ownerOf[tokenId];
-        require(msg.sender==owner|| isApprovedForAll[owner][msg.sender],"not approved");
-        _approvals[tokenId]=to;
-        emit Approve(owner, to, tokenId);
 
+    function ownerOf(uint256 id) external view returns (address owner) {
+        owner = _ownerOf[id];
+        require(owner != address(0), "token doesn't exist");
     }
-    function getApproved(uint256 tokenId)
-        external
-        view
-        returns (address operator){
-            require(_ownerOf[tokenId]!=address(0),"token does not exist");
-            return _approvals[tokenId];
-        }
-    function setApprovalForAll(address operator, bool _approved) external{
-        isApprovedForAll[msg.sender][operator]=true;
-        emit ApprovalForAll(msg.sender, operator, _approved);
+
+    function balanceOf(address owner) external view returns (uint256) {
+        require(owner != address(0), "owner = zero address");
+        return _balanceOf[owner];
     }
+
+    function setApprovalForAll(address operator, bool approved) external {
+        isApprovedForAll[msg.sender][operator] = approved;
+        emit ApprovalForAll(msg.sender, operator, approved);
+    }
+
+    function approve(address spender, uint256 id) external {
+        address owner = _ownerOf[id];
+        require(
+            msg.sender == owner || isApprovedForAll[owner][msg.sender],
+            "not authorized"
+        );
+
+        _approvals[id] = spender;
+
+        emit Approval(owner, spender, id);
+    }
+
+    function getApproved(uint256 id) external view returns (address) {
+        require(_ownerOf[id] != address(0), "token doesn't exist");
+        return _approvals[id];
+    }
+
     function _isApprovedOrOwner(address owner, address spender, uint256 id)
         internal
         view
-        returns (bool){
-            return (spender==owner || isApprovedForAll[owner][spender] || spender==_approvals[id]);
-        }
-    function transferFrom(address from, address to, uint256 tokenId) public{
-        require(from==_ownerOf[tokenId],"not owner");
-        require(to!=address(0),"to is not a zero address");
-        require(isApprovedForAll[from][msg.sender],"not authorized");
+        returns (bool)
+    {
+        return (
+            spender == owner || isApprovedForAll[owner][spender]
+                || spender == _approvals[id]
+        );
+    }
+
+    function transferFrom(address from, address to, uint256 id) public {
+        require(from == _ownerOf[id], "from != owner");
+        require(to != address(0), "transfer to zero address");
+
+        require(_isApprovedOrOwner(from, msg.sender, id), "not authorized");
 
         _balanceOf[from]--;
         _balanceOf[to]++;
-        _ownerOf[tokenId]=to;
+        _ownerOf[id] = to;
 
-        delete _approvals[tokenId];
-        emit Transfer(from, to, tokenId);
+        delete _approvals[id];
+
+        emit Transfer(from, to, id);
     }
-    function safeTransferFrom(address from, address to, uint256 tokenId)
-        external{
-            transferFrom(from,to,tokenId);
-            require(
-                to.code.length==0 ||
-                IERC721Receiver(to).onERC721Received(msg.sender,from,tokenId,"")==IERC721Receiver.onERC721Received.selector,
-                "unsafe recipient"
-            );
-        }
+
+    function safeTransferFrom(address from, address to, uint256 id) external {
+        transferFrom(from, to, id);
+
+        require(
+            to.code.length == 0
+                || IERC721Receiver(to).onERC721Received(msg.sender, from, id, "")
+                    == IERC721Receiver.onERC721Received.selector,
+            "unsafe recipient"
+        );
+    }
+
     function safeTransferFrom(
         address from,
         address to,
-        uint256 tokenId,
+        uint256 id,
         bytes calldata data
-    ) external{
-        transferFrom(from,to,tokenId);
-            require(
-                to.code.length==0 ||
-                IERC721Receiver(to).onERC721Received(msg.sender,from,tokenId,data)==IERC721Receiver.onERC721Received.selector,
-                "unsafe recipient"
-            );
+    ) external {
+        transferFrom(from, to, id);
+
+        require(
+            to.code.length == 0
+                || IERC721Receiver(to).onERC721Received(msg.sender, from, id, data)
+                    == IERC721Receiver.onERC721Received.selector,
+            "unsafe recipient"
+        );
     }
+
     function _mint(address to, uint256 id) internal {
         require(to != address(0), "mint to zero address");
         require(_ownerOf[id] == address(0), "already minted");
